@@ -67,6 +67,16 @@ DATABASES = {
         'USER'    : 'postgres',
         'PASSWORD': 'pispis',
         'HOST'    : '127.0.0.1'
+    },
+    'slave': {
+        'ENGINE'  : 'django.db.backends.postgresql_psycopg2',
+        'NAME'    : 'b11_db_test',
+        'USER'    : 'postgres',
+        'PASSWORD': 'pispis',
+        'HOST'    : '127.0.0.1',
+        'TEST_MIRROR' : 'default',
+    
+    
     }
 }
 

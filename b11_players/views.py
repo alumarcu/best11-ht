@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 #from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
+from django.views import generic
 from b11_players.models import Player, GamePosition,PlayerSkill,Team
 
+class PlayerView(generic.ListView):
+    def get_queryset(self):
+        return Player.objects.order_by('position','team')
 
 # Create your views here.
 def player_overview(request):
@@ -24,8 +28,10 @@ def player_overview(request):
     }
     return render(request, 'b11_players/players.html', context)
     
-def player_details(request, player_id):
-    return HttpResponse("Details for player %s are shown here." % player_id )
+class PlayerDetail(generic.DetailView):
+    model = Player
+
+    
     
 def player_new(request):
     if request.POST:
@@ -43,5 +49,5 @@ def player_new(request):
         return HttpResponseRedirect(reverse('b11_players:u_player_overview'))
 
     context = {}
-    return render(request, 'b11_players/newplayer.html', context)
+    return render_to_response('b11_players/newplayer.html', context)
 

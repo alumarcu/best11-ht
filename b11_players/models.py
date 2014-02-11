@@ -32,6 +32,18 @@ class Player(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_main_skill(self ):
+        try:
+            psk = PlayerSkill.objects.get(sk_ref=self.position.required_sk)
+            if psk.owner == self:
+                return (psk.sk_ref.name, psk.sk_value)
+            # There is no psk entry to retreive
+        except: pass
+        
+        return (self.position.required_sk.name, 0)
+
+        
+        
 
 # Defines the skills owned by players
 class PlayerSkill(models.Model):

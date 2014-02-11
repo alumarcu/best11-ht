@@ -1,0 +1,6 @@
+{% for player in player_list %}
+<a href="{% url 'b11_players:u_player_details' player.id %}">{{ player.name }}</a> 
+{{ player.get_main_skill.0 }}
+<br/>
+
+{% endfor %}
