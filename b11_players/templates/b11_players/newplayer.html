@@ -1,0 +1,8 @@
+<h1>New Player</h1>
+<form action="{% url 'b11_players:u_player_new' %}" method="post">
+{% csrf_token %}
+Name: <input type="text" name="name"><br/>
+Form:  <input type="text" name="form"><br/>
+Stamina:  <input type="text" name="stamina"><br/>
+<input type="submit" value="Create"/>
+</form>

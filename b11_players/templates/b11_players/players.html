@@ -1,0 +1,44 @@
+<html>
+<head><title>Players Overview</title></head>
+<body>
+{# A comment #}
+Template showing player overview<br/>
+Message is: <b>{{ message }}</b><br/>
+
+
+{% for pos in positions %}
+<h1>{{ pos.name }}s</h1>
+<table border="1">
+<tr>
+  <th>No.</th>
+  <th>Name</th>
+  <th>Form</th>
+  <th>Stamina</th>
+  <th>{{ pos.required_sk.name.title }}</th>
+  <th>Team</th>
+</tr>
+{% for player in players_list %}
+{% if player.position == pos %}
+<tr>
+  <td>{{ player.id }}</td>
+  <td><a href="{% url 'b11_players:u_player_details' player.id %}">{{ player.name }}</a></td>
+  <td>{{ player.form }}</td>
+  <td>{{ player.stamina }}</td>
+  <td>{% for sk in player.skills %}
+  {% if sk.sk_ref == pos.required_sk %}{{ sk.sk_value }}{% endif %}
+  {% empty %}-
+  {% endfor %}
+  </td>
+  <td>{{ player.team.name }}</td>
+  
+</tr>
+{% endif %}
+{% endfor %}
+</table>
+{% endfor %}
+
+<a href="{% url 'b11_players:u_player_new' %}">New Player</a>
+
+
+</body>
+</html>
